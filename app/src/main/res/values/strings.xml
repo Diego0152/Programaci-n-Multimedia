@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Aplicación Multifuncional</string>
+    <string name="app_config">Configuración</string>
+    <string name="app_phone">LLAMAR</string>
+    <string name="phone_call">Telefono</string>
+
+    <string name="mi_preferencia">mis_preferencias</string>
+    <string name="nombreTelefono">phone_number</string>
+    <string name="mi_telefono">phone</string>
+</resources>
