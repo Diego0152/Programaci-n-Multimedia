@@ -7,4 +7,8 @@
     <string name="mi_preferencia">mis_preferencias</string>
     <string name="nombreTelefono">phone_number</string>
     <string name="mi_telefono">phone</string>
+    <string name="buttonTextCall">Llamar</string>
+    <string name="buttonTextUrl">Visitar url</string>
+    <string name="buttonTextAlarm">Poner Alarma</string>
+    <string name="buttonTextGmail">Enviar gmail</string>
 </resources>
