@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/vieW1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mint_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </View>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginBottom="67dp"
+        android:background="@drawable/vista1_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </View>
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="140dp"
+        android:layout_height="395dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/main_view_extra"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+    </View>
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="140dp"
+        android:layout_height="395dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/main_view_extra"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="@+id/vieW1"
+        app:layout_constraintTop_toBottomOf="@+id/view">
+
+    </View>
+
+    <TextView
+        android:id="@+id/textMain"
+        android:layout_width="286dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/text_extra"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textCall"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="22dp"
+        android:background="@drawable/text_extra"
+        android:gravity="center"
+        android:text="LLAMADA"
+        android:textColor="@color/jet_grey"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnLlamada"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.148">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textUrl"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/text_extra"
+        android:gravity="center"
+        android:text="URL"
+        android:textColor="@color/jet_grey"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnUrl"
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toTopOf="@+id/view3">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textAlarm"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/text_extra"
+        android:gravity="center"
+        android:text="ALARMA"
+        android:textColor="@color/jet_grey"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAlarm"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toBottomOf="@+id/btnLlamada">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textGmail"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/text_extra"
+        android:gravity="center"
+        android:text="GMAIL"
+        android:textColor="@color/jet_grey"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnGmail"
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toBottomOf="@+id/btnUrl">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/iv_change_phone"
+        android:layout_width="92dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/sharp_conf"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/go_config_icon">
+
+    </ImageView>
+
+    <ImageButton
+        android:id="@+id/btnLlamada"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="87dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="208dp"
+        android:background="@drawable/button_pred"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/phone_call_icon">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/btnUrl"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="208dp"
+        android:background="@drawable/button_pred"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:srcCompat="@drawable/url_icon">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/btnAlarm"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="265dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/button_pred"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/view4"
+        app:layout_constraintEnd_toEndOf="@+id/view4"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/view4"
+        app:layout_constraintTop_toTopOf="@+id/view4"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/alarm_icon">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/btnGmail"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="265dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/button_pred"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="@+id/view3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toTopOf="@+id/view3"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/gmail_icon">
+
+    </ImageButton>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
