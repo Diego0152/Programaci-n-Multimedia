@@ -60,7 +60,7 @@ class PhoneActivity : AppCompatActivity() {
         mainBinding.ivChangePhone.setOnClickListener {
             val sharedPref = getString(R.string.mi_preferencia)
             val sharedPhone = getString(R.string.nombreTelefono)
-            val preference = getSharedPreferences(sharedPref, Context.MODE_PRIVATE)
+            val preference = getSharedPreferences(sharedPref, MODE_PRIVATE)
             preference.edit {
                 remove(sharedPhone)
             }
