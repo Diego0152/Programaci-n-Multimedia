@@ -2,7 +2,6 @@ package com.example.proyectoevaltema1
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.provider.AlarmClock
 import android.widget.ImageButton
@@ -109,12 +108,13 @@ class MainActivity : AppCompatActivity() {
                 }
 
             } catch (e: NumberFormatException) {
-                println("Error: Formato incorrecto.")
+                println(e.toString())
             }
         }
         return emptyList()
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     fun createAlarm(hour: Int, minutes: Int) {
         val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
             putExtra(AlarmClock.EXTRA_MESSAGE, "Levantarse")

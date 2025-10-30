@@ -11,4 +11,6 @@
     <string name="buttonTextUrl">Visitar url</string>
     <string name="buttonTextAlarm">Poner Alarma</string>
     <string name="buttonTextGmail">Enviar gmail</string>
+    <string name="phone_desc">Llamar al telefono</string>
+    <string name="phone_goToConfig">volver a configuración</string>
 </resources>

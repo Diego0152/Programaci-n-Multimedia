@@ -1,6 +1,5 @@
 package com.example.proyectoevaltema1
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -18,7 +17,7 @@ class ConfActivity : AppCompatActivity() {
         inflarViews = ActivityConfBinding.inflate(layoutInflater)
         setContentView(inflarViews.root)
 
-        preference = getSharedPreferences("mis_preferencias", Context.MODE_PRIVATE)
+        preference = getSharedPreferences("mis_preferencias",MODE_PRIVATE)
 
         inflarViews.editPhone.setText(preference.getString("phone", ""))
         inflarViews.editUrl.setText(preference.getString("url", ""))

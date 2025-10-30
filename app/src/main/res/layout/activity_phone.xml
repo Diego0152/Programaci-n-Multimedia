@@ -44,6 +44,7 @@
         android:layout_height="80dp"
         android:background="@drawable/button_pred"
         android:scaleType="fitCenter"
+        android:contentDescription="@string/phone_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -61,6 +62,7 @@
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="48dp"
         android:background="@drawable/sharp_conf"
+        android:contentDescription="@string/phone_goToConfig"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/go_config_icon">

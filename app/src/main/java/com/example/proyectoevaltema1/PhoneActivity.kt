@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyectoevaltema1.databinding.ActivityPhoneBinding
 import androidx.core.net.toUri
+import androidx.core.content.edit
 
 class PhoneActivity : AppCompatActivity() {
     private lateinit var mainBinding : ActivityPhoneBinding
@@ -60,9 +61,9 @@ class PhoneActivity : AppCompatActivity() {
             val sharedPref = getString(R.string.mi_preferencia)
             val sharedPhone = getString(R.string.nombreTelefono)
             val preference = getSharedPreferences(sharedPref, Context.MODE_PRIVATE)
-            val edit = preference.edit()
-            edit.remove(sharedPhone)
-            edit.apply()
+            preference.edit {
+                remove(sharedPhone)
+            }
             val intent = Intent(this, ConfActivity::class.java )
                 .apply {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
