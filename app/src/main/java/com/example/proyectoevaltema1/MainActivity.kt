@@ -1,20 +1,16 @@
 package com.example.proyectoevaltema1
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.icu.number.FormattedNumberRange
 import android.net.Uri
 import android.os.Bundle
 import android.provider.AlarmClock
-import android.provider.ContactsContract
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.proyectoevaltema1.databinding.ActivityConfBinding
 import java.lang.NumberFormatException
-import kotlin.math.min
+import androidx.core.net.toUri
 
 class MainActivity : AppCompatActivity() {
 
@@ -61,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             val url = preferences.getString("url","") ?: ""
 
             if (!(url.isEmpty())) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Error: Url vacía.", Toast.LENGTH_SHORT).show()
@@ -75,11 +71,7 @@ class MainActivity : AppCompatActivity() {
                  val horas = alarma[0]
                  val minutos = alarma[1]
 
-                 val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
-                     putExtra(AlarmClock.EXTRA_HOUR, horas)
-                     putExtra(AlarmClock.EXTRA_MINUTES, minutos)
-                 }
-                 startActivity(intent)
+                 createAlarm(horas, minutos)
              } else {
                  Toast.makeText(this, "Error: Error en el formato: HH:MM ", Toast.LENGTH_SHORT).show()
              }
@@ -89,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
             if (!(gmail.isEmpty())) {
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:$gmail")
+                    data = "mailto:$gmail".toUri()
                 }
                 startActivity(intent)
             } else {
@@ -101,23 +93,39 @@ class MainActivity : AppCompatActivity() {
     fun configurarAlarma(): List<Int> {
         val preference = getSharedPreferences("mis_preferencias", MODE_PRIVATE)
 
-        val alarma = preference.getString("alarm","") ?: ""
+        val alarma = preference.getString("alarm","")?.trim() ?: ""
         val formatoAlarma: List<String> = alarma.split(":")
 
         if(formatoAlarma.size == 2) {
-            val alarmHora = formatoAlarma[0]
-            val alarmMinuto = formatoAlarma[1]
+            val alarmHora = formatoAlarma[0].trim()
+            val alarmMinuto = formatoAlarma[1].trim()
 
             try {
                 val alarmHoraInt = alarmHora.toInt()
                 val alarmMinutoInt = alarmMinuto.toInt()
 
-                return listOf(alarmHoraInt, alarmMinutoInt)
+                if (alarmHoraInt in 0..23 && alarmMinutoInt in 0..59) {
+                    return listOf(alarmHoraInt, alarmMinutoInt)
+                }
+
             } catch (e: NumberFormatException) {
                 println("Error: Formato incorrecto.")
             }
         }
         return emptyList()
+    }
+
+    fun createAlarm(hour: Int, minutes: Int) {
+        val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
+            putExtra(AlarmClock.EXTRA_MESSAGE, "Levantarse")
+            putExtra(AlarmClock.EXTRA_HOUR, hour)
+            putExtra(AlarmClock.EXTRA_MINUTES, minutes)
+        }
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Error: No se encuentra una app para abrir la alarma.", Toast.LENGTH_SHORT).show()
+        }
     }
 }
 

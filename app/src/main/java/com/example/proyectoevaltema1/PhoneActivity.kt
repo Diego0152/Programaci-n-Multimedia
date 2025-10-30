@@ -16,15 +16,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyectoevaltema1.databinding.ActivityPhoneBinding
+import androidx.core.net.toUri
 
 class PhoneActivity : AppCompatActivity() {
     private lateinit var mainBinding : ActivityPhoneBinding
-
     private var stringPhoneCall : String? = null
     private var permisoLlamar = false
-
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +45,15 @@ class PhoneActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         permisoLlamar = isPermissionCall()
-        val telef =getString(R.string.mi_telefono)
-        stringPhoneCall = intent.getStringExtra(telef)
-        mainBinding.txtPhone.setText(stringPhoneCall)
+
+        val preference = getSharedPreferences("mis_preferencias", MODE_PRIVATE)
+        stringPhoneCall = preference.getString("phone", "")
+        mainBinding.txtPhone.text = stringPhoneCall
     }
 
     private fun init(){
         registerLauncher()
-        if (!isPermissionCall()) //verificamos permisos en de llamada.
+        if (!isPermissionCall())
             requestPermissionLauncher.launch(android.Manifest.permission. CALL_PHONE)
 
         mainBinding.ivChangePhone.setOnClickListener {
@@ -67,7 +66,7 @@ class PhoneActivity : AppCompatActivity() {
             val intent = Intent(this, ConfActivity::class.java )
                 .apply {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                    putExtra("back", true)//volvemos desde El ACtivity2
+                    putExtra("back", true)
                 }
             startActivity(intent)
         }
@@ -83,18 +82,18 @@ class PhoneActivity : AppCompatActivity() {
             else {
                 Toast.makeText( this, "Necesitas habilitar los permisos",
                     Toast.LENGTH_LONG).show()
-                goToConfiguracionApp()  //abrimos la configuración de la aplicación.
+                goToConfiguracionApp()
             }
         }
     }
 
     private fun initEventCall() {
-        mainBinding.ivChangePhone.setOnClickListener {
+        mainBinding.btnPhone.setOnClickListener {
             permisoLlamar=isPermissionCall()
             if (permisoLlamar)
                 call()
             else
-                requestPermissionLauncher.launch(android.Manifest.permission. CALL_PHONE)
+                requestPermissionLauncher.launch(android.Manifest.permission.CALL_PHONE)
         }
     }
     private fun isPermissionCall():Boolean{
@@ -108,8 +107,12 @@ class PhoneActivity : AppCompatActivity() {
 
     private fun call() {
 
-        val intent = Intent(Intent.ACTION_CALL).apply {  //creamos la intención
-            data = Uri.parse("tel:"+stringPhoneCall!!)
+        if (stringPhoneCall.isNullOrEmpty()) {
+            Toast.makeText(this, "Debe configurar un número antes de llamar.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val intent = Intent(Intent.ACTION_CALL).apply {
+            data = ("tel:" + stringPhoneCall!!).toUri()
         }
         startActivity(intent)
     }

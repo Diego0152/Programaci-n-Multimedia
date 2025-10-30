@@ -40,6 +40,7 @@ class ConfActivity : AppCompatActivity() {
                 putString("alarm", textAlarm)
                 putString("gmail", textGmail)
                 apply()
+                finish()
             }
 
             startActivity(Intent(this, MainActivity::class.java))
