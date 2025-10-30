@@ -63,10 +63,3 @@ Durante el desarrollo de este proyecto, se encontraron las siguientes dificultad
 * **Gestión de IDs:** En varias ocasiones, se detectaron errores de referencias debido a que las IDs de los botones y vistas en el código Kotlin no se correspondían correctamente con las IDs definidas en los layouts XML.
 * **Diseño de Interfaz:** Se encontraron problemas de posicionamiento y alineación de elementos al trabajar con el `ConstraintLayout` para la distribución de las diferentes vistas.
 
----
-
-## V. Repositorio del Proyecto
-
-El código fuente de **Aplicación Multifuncional** en github:
-
-**[https://github.com/Diego0152/Programaci-n-Multimedia](https://github.com/Diego0152/Programaci-n-Multimedia)**
