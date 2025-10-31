@@ -1,6 +1,5 @@
 package com.example.proyectoevaltema1
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.provider.AlarmClock
@@ -64,16 +63,14 @@ class MainActivity : AppCompatActivity() {
         }
 
          btnAlarma.setOnClickListener {
-             val alarma = configurarAlarma()
+             val alarma = getSharedPreferences("mis_preferencias", MODE_PRIVATE)
+             val hora = alarma.getString("alarm_hour", "") ?: ""
+             val min = alarma.getString("alarm_min", "") ?: ""
 
-             if (alarma.size == 2) {
-                 val horas = alarma[0]
-                 val minutos = alarma[1]
+             val horaToInt = hora.toInt()
+             val minToInt = min.toInt()
 
-                 createAlarm(horas, minutos)
-             } else {
-                 Toast.makeText(this, "Error: Error en el formato: HH:MM ", Toast.LENGTH_SHORT).show()
-             }
+                 createAlarm(horaToInt, minToInt)
          }
         btnGmail.setOnClickListener {
             val gmail = preferences.getString("gmail","") ?: ""
@@ -88,44 +85,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-    fun configurarAlarma(): List<Int> {
-        val preference = getSharedPreferences("mis_preferencias", MODE_PRIVATE)
-
-        val alarma = preference.getString("alarm","")?.trim() ?: ""
-        val formatoAlarma: List<String> = alarma.split(":")
-
-        if(formatoAlarma.size == 2) {
-            val alarmHora = formatoAlarma[0].trim()
-            val alarmMinuto = formatoAlarma[1].trim()
-
-            try {
-                val alarmHoraInt = alarmHora.toInt()
-                val alarmMinutoInt = alarmMinuto.toInt()
-
-                if (alarmHoraInt in 0..23 && alarmMinutoInt in 0..59) {
-                    return listOf(alarmHoraInt, alarmMinutoInt)
-                }
-
-            } catch (e: NumberFormatException) {
-                println(e.toString())
-            }
-        }
-        return emptyList()
-    }
-
-    @SuppressLint("QueryPermissionsNeeded")
     fun createAlarm(hour: Int, minutes: Int) {
         val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
             putExtra(AlarmClock.EXTRA_MESSAGE, "Levantarse")
             putExtra(AlarmClock.EXTRA_HOUR, hour)
             putExtra(AlarmClock.EXTRA_MINUTES, minutes)
         }
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
-        } else {
-            Toast.makeText(this, "Error: No se encuentra una app para abrir la alarma.", Toast.LENGTH_SHORT).show()
-        }
+        startActivity(intent)
     }
 }
 
