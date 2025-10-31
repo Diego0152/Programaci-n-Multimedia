@@ -107,11 +107,23 @@ class PhoneActivity : AppCompatActivity() {
     private fun isPermissionToUser() = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED
 
     private fun call() {
+        val numTel = stringPhoneCall
 
         if (stringPhoneCall.isNullOrEmpty()) {
             Toast.makeText(this, "Debe configurar un número antes de llamar.", Toast.LENGTH_SHORT).show()
             return
         }
+
+        if (numTel?.length != 9) {
+            Toast.makeText(this, "Número de dígitos incorrectos.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (numTel.toLongOrNull() == null) {
+            Toast.makeText(this, "Los valores del telefono son incorrectos.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val intent = Intent(Intent.ACTION_CALL).apply {
             data = ("tel:" + stringPhoneCall!!).toUri()
         }

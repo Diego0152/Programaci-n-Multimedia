@@ -7,7 +7,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import java.lang.NumberFormatException
 import androidx.core.net.toUri
 
 class MainActivity : AppCompatActivity() {
@@ -43,23 +42,28 @@ class MainActivity : AppCompatActivity() {
         btnLlamada.setOnClickListener {
             val numTel = preferences.getString("phone","") ?: ""
 
-            if (!(numTel.isEmpty())) {
+            if (!(numTel.isEmpty() && numTel.length != 9 && numTel.toLongOrNull() == null)) {
                 val intent = Intent(this, PhoneActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Error: teléfono vacío.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error: Formato incorrecto.", Toast.LENGTH_SHORT).show()
             }
         }
 
         btnUrl.setOnClickListener {
             val url = preferences.getString("url","") ?: ""
 
-            if (!(url.isEmpty())) {
+            if (url.isEmpty()) {
+                Toast.makeText(this, "Error: Url vacía.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            try {
                 val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                 startActivity(intent)
-            } else {
-                Toast.makeText(this, "Error: Url vacía.", Toast.LENGTH_SHORT).show()
+            } catch (e : Exception) {
+                Toast.makeText(this, "Error: Formato incorrecto de la url.", Toast.LENGTH_SHORT).show()
             }
+
         }
 
          btnAlarma.setOnClickListener {
@@ -67,31 +71,46 @@ class MainActivity : AppCompatActivity() {
              val hora = alarma.getString("alarm_hour", "") ?: ""
              val min = alarma.getString("alarm_min", "") ?: ""
 
-             val horaToInt = hora.toInt()
-             val minToInt = min.toInt()
+             val horaToInt = hora.toIntOrNull()
+             val minToInt = min.toIntOrNull()
 
-                 createAlarm(horaToInt, minToInt)
+             if (horaToInt !in 0..23 && minToInt !in 0..59) {
+                Toast.makeText(this, "Error: Formato de la alarma incorrecto.", Toast.LENGTH_SHORT).show()
+                 return@setOnClickListener
+             }
+
+             createAlarm(horaToInt, minToInt)
          }
+
         btnGmail.setOnClickListener {
             val gmail = preferences.getString("gmail","") ?: ""
 
-            if (!(gmail.isEmpty())) {
+            if (gmail.isEmpty()) {
+                Toast.makeText(this, "Error: correo vacío.", Toast.LENGTH_SHORT).show()
+            }
+
+            if (gmail.contains('@') || gmail.contains('.')) {
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
                     data = "mailto:$gmail".toUri()
                 }
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Error: correo vacío.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error: Correo electrónico no encontrado.", Toast.LENGTH_SHORT).show()
             }
+
         }
     }
-    fun createAlarm(hour: Int, minutes: Int) {
-        val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
-            putExtra(AlarmClock.EXTRA_MESSAGE, "Levantarse")
-            putExtra(AlarmClock.EXTRA_HOUR, hour)
-            putExtra(AlarmClock.EXTRA_MINUTES, minutes)
+    fun createAlarm(hour: Int?, minutes: Int?) {
+        try {
+            val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
+                putExtra(AlarmClock.EXTRA_MESSAGE, "Levantarse")
+                putExtra(AlarmClock.EXTRA_HOUR, hour)
+                putExtra(AlarmClock.EXTRA_MINUTES, minutes)
+            }
+            startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error: No se puedo crear la alarma.", Toast.LENGTH_SHORT).show()
         }
-        startActivity(intent)
     }
 }
 

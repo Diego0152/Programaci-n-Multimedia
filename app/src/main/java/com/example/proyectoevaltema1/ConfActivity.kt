@@ -22,8 +22,8 @@ class ConfActivity : AppCompatActivity() {
 
         inflarViews.editPhone.setText(preference.getString("phone", ""))
         inflarViews.editUrl.setText(preference.getString("url", ""))
-        inflarViews.editAlarmMin.setText(preference.getString("alarm_hour", ""))
         inflarViews.editAlarmHour.setText(preference.getString("alarm_min", ""))
+        inflarViews.editAlarmMin.setText(preference.getString("alarm_hour", ""))
         inflarViews.editGmail.setText(preference.getString("gmail", ""))
 
         inflarViews.btnConfig.setOnClickListener {
@@ -34,7 +34,7 @@ class ConfActivity : AppCompatActivity() {
             val textGmail = inflarViews.editGmail.text.toString()
 
             if (textPhone.isEmpty() || textUrl.isEmpty() || textAlarmHour.isEmpty() || textGmail.isEmpty() || textAlarmHour.isEmpty()) {
-                Toast.makeText(this, "Algun campo está vacío", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Algun campo está vacío", Toast.LENGTH_SHORT).show()
             }
             preference.edit().apply {
                 putString("phone", textPhone)
