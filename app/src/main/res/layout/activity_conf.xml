@@ -1,139 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConfActivity">
+    android:fillViewport="true">
 
-
-    <View
-        android:id="@+id/view2"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/indigo_blue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </View>
-
-    <TextView
-        android:id="@+id/txtCon"
-        android:layout_width="286dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/text_extra"
-        android:gravity="center"
-        android:text="@string/app_config"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </TextView>
-
-    <EditText
-        android:id="@+id/edit_phone"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:ems="10"
-        android:hint="Teléfono:"
-        android:inputType="text"
-        android:textColor="@color/columbia_blue"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtCon" />
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edit_url"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="URL: (https://*.com)"
-        android:inputType="text"
-        android:textColor="@color/columbia_blue"
-        android:textSize="20sp"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_phone" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-    <EditText
-        android:id="@+id/edit_alarm_hour"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="Alarma: Hora"
-        android:inputType="text"
-        android:textColor="@color/columbia_blue"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_url" />
+            <!-- Título -->
+            <TextView
+                android:id="@+id/txtCon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_extra"
+                android:gravity="center"
+                android:text="@string/app_config"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-    <EditText
-        android:id="@+id/edit_alarm_min"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="Alarma: Min"
-        android:inputType="text"
-        android:textColor="@color/columbia_blue"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_alarm_hour" />
+            <!-- Teléfono -->
+            <EditText
+                android:id="@+id/edit_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Teléfono:"
+                android:inputType="phone"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/txtCon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"/>
 
-    <EditText
-        android:id="@+id/edit_gmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:hint="usuario@gmail.com"
-        android:inputType="text"
-        android:textColor="@color/columbia_blue"
-        android:textColorHint="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_alarm_min">
+            <!-- URL -->
+            <EditText
+                android:id="@+id/edit_url"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="URL: (https://*.com)"
+                android:inputType="textUri"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/edit_phone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"/>
 
-    </EditText>
+            <!-- Spinner -->
+            <Spinner
+                android:id="@+id/spinner_tiempo"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/text_extra"
+                app:layout_constraintTop_toBottomOf="@id/edit_url"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"/>
 
-    <ImageButton
-        android:id="@+id/btn_config"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="588dp"
-        android:background="@drawable/button_pred"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/save_icon">
+            <!-- CheckBox -->
+            <CheckBox
+                android:id="@+id/chk_opcional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Llamar a Diego"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/spinner_tiempo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"/>
 
+            <!-- Gmail -->
+            <EditText
+                android:id="@+id/edit_gmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="usuario@gmail.com"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/chk_opcional"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"/>
 
+            <!-- DatePicker -->
+            <DatePicker
+                android:id="@+id/datepicker_fecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:calendarViewShown="false"
+                android:spinnersShown="true"
+                app:layout_constraintTop_toBottomOf="@id/edit_gmail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"/>
 
-    </ImageButton>
+            <!-- Botón de guardar -->
+            <ImageButton
+                android:id="@+id/btn_config"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:background="@drawable/button_pred"
+                android:src="@drawable/save_icon"
+                app:layout_constraintTop_toBottomOf="@id/datepicker_fecha"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="24dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- ProgressBar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="@id/btn_config"
+                app:layout_constraintBottom_toBottomOf="@id/btn_config"
+                app:layout_constraintStart_toStartOf="@id/btn_config"
+                app:layout_constraintEnd_toEndOf="@id/btn_config"/>
+
+            <!-- Fondo/Separador opcional -->
+            <View
+                android:id="@+id/view2"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:background="@color/indigo_blue"
+                app:layout_constraintTop_toBottomOf="@id/txtCon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</ScrollView>

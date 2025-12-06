@@ -1,117 +1,124 @@
 package com.example.proyectoevaltema1
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.provider.AlarmClock
+import android.provider.ContactsContract
+import android.widget.DatePicker
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 
+
+
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var iwConfig: ImageView
-    private lateinit var btnLlamada: ImageButton
-    private lateinit var btnUrl: ImageButton
-    private lateinit var btnAlarma: ImageButton
-    private lateinit var btnGmail: ImageButton
+        private lateinit var btnLlamada: ImageButton
+        private lateinit var btnUrl: ImageButton
+        private lateinit var btnAlarma: ImageButton
+        private lateinit var btnGmail: ImageButton
+        private lateinit var btnDados: ImageButton
+        private lateinit var btnChistes: ImageButton
+        private lateinit var btnGoConfig: ImageButton
+        private lateinit var preferences: SharedPreferences
+        private lateinit var tvFecha: TextView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
 
-        iwConfig = findViewById(R.id.iv_change_phone)
+            preferences = getSharedPreferences("mis_preferencias", MODE_PRIVATE)
 
-        iwConfig.setOnClickListener {
-            val intent = Intent(this, ConfActivity::class.java)
-            startActivity(intent)
+            // Inicializar botones
+            btnLlamada = findViewById(R.id.btnLlamada)
+            btnUrl = findViewById(R.id.btnUrl)
+            btnAlarma = findViewById(R.id.btnAlarm)
+            btnGmail = findViewById(R.id.btnGmail)
+            btnDados = findViewById(R.id.btnDados)
+            btnChistes = findViewById(R.id.btnChistes)
+            btnGoConfig = findViewById(R.id.iv_change_phone)
+
+            // Inicializar DatePicker y TextView
+            tvFecha = findViewById(R.id.tvFecha)
+            val fecha = preferences.getString("fecha", "No definida")
+            tvFecha.text = "$fecha"
+
+            // Asignar eventos a botones
+            setupButtons()
         }
 
-        btnLlamada = findViewById(R.id.btnLlamada)
-        btnUrl = findViewById(R.id.btnUrl)
-        btnAlarma = findViewById(R.id.btnAlarm)
-        btnGmail = findViewById(R.id.btnGmail)
-
-        funcionesBotones()
-    }
-
-    fun funcionesBotones() {
-
-        val preferences = getSharedPreferences("mis_preferencias", MODE_PRIVATE)
-        btnLlamada.setOnClickListener {
-            val numTel = preferences.getString("phone","") ?: ""
-
-            if (!(numTel.isEmpty() && numTel.length != 9 && numTel.toLongOrNull() == null)) {
+        private fun setupButtons() {
+            btnLlamada.setOnClickListener {
                 val intent = Intent(this, PhoneActivity::class.java)
                 startActivity(intent)
-            } else {
-                Toast.makeText(this, "Error: Formato incorrecto.", Toast.LENGTH_SHORT).show()
             }
-        }
 
-        btnUrl.setOnClickListener {
-            val url = preferences.getString("url","") ?: ""
-
-            if (url.isEmpty()) {
-                Toast.makeText(this, "Error: Url vacía.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            btnUrl.setOnClickListener {
+                val url = preferences.getString("url", "") ?: ""
+                if (url.isNotEmpty()) {
+                    val safeUrl =
+                        if (url.startsWith("http://") || url.startsWith("https://")) url else "http://$url"
+                    val intent = Intent(Intent.ACTION_VIEW, safeUrl.toUri())
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "URL no configurada.", Toast.LENGTH_SHORT).show()
+                }
             }
-            try {
-                val intent = Intent(Intent.ACTION_VIEW, url.toUri())
+
+            btnAlarma.setOnClickListener {
+                // Valores de ejemplo, puedes cambiar a preferencias
+                val hora = 10
+                val min = 30
+                createAlarm(hora, min)
+            }
+
+            btnGmail.setOnClickListener {
+                val gmail = preferences.getString("gmail", "") ?: ""
+                if (gmail.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(gmail)
+                        .matches()
+                ) {
+                    val intent = Intent(Intent.ACTION_SENDTO).apply {
+                        data = "mailto:$gmail".toUri()
+                        putExtra(Intent.EXTRA_SUBJECT, "Asunto por defecto")
+                    }
+                    startActivity(Intent.createChooser(intent, "Enviar correo con..."))
+                } else {
+                    Toast.makeText(this, "Correo no válido o no configurado.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+            btnDados.setOnClickListener {
+                val intent = Intent(this, DadoActivity::class.java)
                 startActivity(intent)
-            } catch (e : Exception) {
-                Toast.makeText(this, "Error: Formato incorrecto de la url.", Toast.LENGTH_SHORT).show()
             }
+
+            btnChistes.setOnClickListener {
+                val intent = Intent(this, ChistesActivity::class.java)
+                startActivity(intent)
+            }
+            btnGoConfig.setOnClickListener {
+                val intent = Intent(this, ConfActivity::class.java)
+                startActivity(intent)
+            }
+
 
         }
 
-         btnAlarma.setOnClickListener {
-             val alarma = getSharedPreferences("mis_preferencias", MODE_PRIVATE)
-             val hora = alarma.getString("alarm_hour", "") ?: ""
-             val min = alarma.getString("alarm_min", "") ?: ""
-
-             val horaToInt = hora.toIntOrNull()
-             val minToInt = min.toIntOrNull()
-
-             if (horaToInt !in 0..23 && minToInt !in 0..59) {
-                Toast.makeText(this, "Error: Formato de la alarma incorrecto.", Toast.LENGTH_SHORT).show()
-                 return@setOnClickListener
-             }
-
-             createAlarm(horaToInt, minToInt)
-         }
-
-        btnGmail.setOnClickListener {
-            val gmail = preferences.getString("gmail","") ?: ""
-
-            if (gmail.isEmpty()) {
-                Toast.makeText(this, "Error: correo vacío.", Toast.LENGTH_SHORT).show()
-            }
-
-            if (gmail.contains('@') || gmail.contains('.')) {
-                val intent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = "mailto:$gmail".toUri()
+        private fun createAlarm(hour: Int, minutes: Int) {
+            try {
+                val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
+                    putExtra(AlarmClock.EXTRA_HOUR, hour)
+                    putExtra(AlarmClock.EXTRA_MINUTES, minutes)
+                    putExtra(AlarmClock.EXTRA_MESSAGE, "Alarma desde App")
                 }
                 startActivity(intent)
-            } else {
-                Toast.makeText(this, "Error: Correo electrónico no encontrado.", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(this, "No se pudo crear la alarma.", Toast.LENGTH_SHORT).show()
             }
-
         }
     }
-    fun createAlarm(hour: Int?, minutes: Int?) {
-        try {
-            val intent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
-                putExtra(AlarmClock.EXTRA_MESSAGE, "Levantarse")
-                putExtra(AlarmClock.EXTRA_HOUR, hour)
-                putExtra(AlarmClock.EXTRA_MINUTES, minutes)
-            }
-            startActivity(intent)
-        } catch (e: Exception) {
-            Toast.makeText(this, "Error: No se puedo crear la alarma.", Toast.LENGTH_SHORT).show()
-        }
-    }
-}
-
-

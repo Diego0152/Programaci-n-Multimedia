@@ -11,6 +11,22 @@
     <string name="buttonTextUrl">Visitar url</string>
     <string name="buttonTextAlarm">Poner Alarma</string>
     <string name="buttonTextGmail">Enviar gmail</string>
+    <string name="buttonTextDados">Tirar los dados</string>
+    <string name="buttonTextAudios">Reproducir sonidos</string>
     <string name="phone_desc">Llamar al telefono</string>
     <string name="phone_goToConfig">volver a configuración</string>
+
+
+    <string name="describe">Chicos de PMDM del Virgen del Carmen, soy Santi. Este ejemplo, te muestra un botón donde escuchar un chiste. Pulsa dos veces para escuchar una broma aleatoria.</string>
+
+    <string name="chiste_1">Esto era uno, que era tan tonto, tan tonto, tan tonto, que echó una carrera el sólo y quedó segundo.</string>
+    <string name="chiste_2">¿Qué hace un pez? ¡Nada!</string>
+    <string name="chiste_3">Había un señor tan, tan, tan pequeño, que se subió a una noria y dijo: ¡Tierra a la vista!</string>
+    <string name="chiste_4">Mamá, mamá, en el colegio me dicen que soy un despistado. ¿Por dónde andabas? ¿No ves que te equivocaste de casa?</string>
+    <string name="chiste_5">Doctor, tengo un problema, no sé qué me pasa. Pues mire, póngase en la lista de espera.</string>
+    <string name="chiste_6">¿Qué le dice un jardinero a otro? Nos vemos cuando podamos.</string>
+    <string name="chiste_7">¿Por qué los pájaros no usan Facebook? Porque ya tienen Twitter.</string>
+    <string name="chiste_8">¿Qué hace una taza de café en el gimnasio? ¡Taza ejercicio!</string>
+    <string name="chiste_9">Soy un águila, señorita. ¿Y por qué no vuela, entonces? Porque soy águila, no pájara.</string>
+    <string name="chiste_10">¿Qué hace una sirena en la peluquería? Se hace la permanente.</string>
 </resources>

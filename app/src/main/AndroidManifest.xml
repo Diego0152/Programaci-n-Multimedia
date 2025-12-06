@@ -32,6 +32,12 @@
         <activity android:name=".PhoneActivity">
 
         </activity>
+        <activity android:name=".DadoActivity">
+
+        </activity>
+        <activity android:name=".ChistesActivity">
+
+        </activity>
     </application>
 
 </manifest>
